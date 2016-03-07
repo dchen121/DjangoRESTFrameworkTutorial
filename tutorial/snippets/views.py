@@ -17,9 +17,11 @@ def snippet_list(request, format=None):
 
 	elif request.method =='POST':
 		serializer = SnippetSerializer(data=request.data)
+
 		if serializer.is_valid():
 			serializer.save()
-			return Reponse(serializer.data, status=status.HTTP_201_CREATED)
+			return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -37,12 +39,12 @@ def snippet_detail(request, pk, format=None):
 		serializer = SnippetSerializer(snippet)
 		return Response(serializer.data)
 
-	elif request.method ==' PUT':
+	elif request.method == 'PUT':
 		serializer = SnippetSerializer(snippet, data=request.data)
 
 		if serializer.is_valid():
 			serializer.save()
-			return Reponse(serializer.data)
+			return Response(serializer.data)
 
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
